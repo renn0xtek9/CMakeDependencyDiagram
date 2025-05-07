@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CMake target diagrams</title>
+    <style>
+        .heading {
+            text-align: center;
+            margin: 20px;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 24px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 3px solid #ccc;
+            border-radius: 5px;
+
+        }
+
+        .target_list_column {
+            float: left;
+            width: fit-content;
+            height: fit-content;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 3px solid #ccc;
+            border-radius: 5px;
+            margin: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        .main-content {
+            width: 80%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="heading">
+        <h1>CMake target dependency diagrams</h1>
+    </div>
+    <div class="row">
+        <div class="target_list_column" id="listColumn">
+        </div>
+
+        <div class="main-content">
+            <input type="text" id="searchBox" placeholder="Enter the file name">
+            <button onclick="searchImage()">Search</button>
+            <button onclick="cleanImage()">Clean</button>
+
+            <div id="diagramHolder"></div>
+        </div>
+    </div>
+
+    <script src="listOfTargetFileDependencyDiagrams.js"></script>
+
+    <script>
+        var listColumn = document.getElementById('listColumn');
+        targetDiagramFiles.forEach(function (file) {
+            var listItem = document.createElement('p');
+            listItem.textContent = file;
+            listItem.style.cursor = 'pointer';
+            listItem.onclick = function () {
+                document.getElementById('searchBox').value = file;
+                searchImage();
+            };
+            listColumn.appendChild(listItem);
+        });
+
+        function searchImage() {
+            var inputVal = document.getElementById('searchBox').value;
+
+            var fileName = 'cmake.dot.' + inputVal + '.png';
+            if (inputVal === 'cmake.dot') {
+                fileName = "cmake.dot.png";
+            }
+
+            var img = new Image();
+            img.src = fileName;
+
+            img.onerror = function () {
+                alert('Diagram not found: ' + fileName);
+            }
+
+            document.getElementById('diagramHolder').appendChild(img);
+        }
+
+        function cleanImage() {
+            document.getElementById('diagramHolder').innerHTML = '';
+        }
+    </script>
+</body>
+
+</html>
