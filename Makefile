@@ -1,6 +1,6 @@
 BUILD_DIR := $(shell pwd)/build
 
-build/cmake-dependency-diagram-%.stamp:
+build/cmake-dependency-diagram-%.stamp: $(wildcard src/*) $(wildcard packaging/*)
 	@mkdir -p $(BUILD_DIR)/packaging
 	@cp -r packaging/$* $(BUILD_DIR)/packaging/$*/
 	cd $(BUILD_DIR)/packaging/$* && pwd && dpkg-buildpackage -us -uc 
@@ -9,7 +9,11 @@ build/cmake-dependency-diagram-%.stamp:
 	@touch $@
 
 packaging: build/cmake-dependency-diagram-ubuntu-20.stamp
-    
+
+test: build/cmake-dependency-diagram-ubuntu-20.stamp
+	@echo "Testing the package..."
+	./tests/integration_test.sh
+
 clean: 
 	@rm -rf $(BUILD_DIR)
 	@rm -rf output
