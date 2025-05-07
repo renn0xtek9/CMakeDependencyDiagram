@@ -1,0 +1,5 @@
+cmake-dependency-diagram (1.0.0) stable; urgency=low
+
+    * Initial release.
+
+ -- Maxime Haselbauer <maxime.haselbauer@googlemail.com>  Sat, 10 Oct 2025 12:00:00 +0000
