@@ -8,3 +8,9 @@ function expect_file
         exit 1
     fi
 }
+
+function fail 
+{
+    echo "FAILED: $1"
+    exit 1
+}

@@ -12,8 +12,8 @@ packaging: build/cmake-dependency-diagram-ubuntu-20.stamp
 
 test: build/cmake-dependency-diagram-ubuntu-20.stamp
 	@echo "Testing the package..."
-	./tests/integration_test.sh
-
+	./tests/debian_package_test/debian_package_test.sh
+	
 clean: 
 	@rm -rf $(BUILD_DIR)
 	@rm -rf output
