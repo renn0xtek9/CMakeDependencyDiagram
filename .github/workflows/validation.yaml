@@ -1,0 +1,20 @@
+name: Validation pipeline
+
+on:
+  pull_request:
+
+jobs:
+  debian-packaging:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y graphviz cmake dpkg-dev build-essential debhelper
+
+      - name: Clean packaging
+        run: make clean && make packaging 
+
+      - name: Test the created package
+        run: make test

@@ -1,6 +1,6 @@
 #include <iostream>
 int main()
 {
-  std::cout << "Intergation test: SUCCESS!" << std::endl;
+  std::cout << "Integration test: SUCCESS!" << std::endl;
   return 0;
 }

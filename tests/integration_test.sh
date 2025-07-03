@@ -4,6 +4,10 @@ source "$DIR/test_utils.sh"
 set -e 
 cd output
 sudo apt remove -y cmake-dependency-diagram
+
+# Ensure the package is owned by _apt user. See https://www.reddit.com/r/linux4noobs/comments/ux6cwx/installation_errors_on_deb_files_apt/
+# It enables us skipping some warning that do not return 0.
+sudo chown _apt ./cmake-dependency-diagram_1.0.0_all.deb 
 sudo apt install -y ./cmake-dependency-diagram_1.0.0_all.deb
 cd ..
 cd tests 
