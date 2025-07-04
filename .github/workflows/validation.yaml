@@ -1,10 +1,10 @@
-name: Validation pipeline
+name: Packaging validation
 
 on:
   pull_request:
 
 jobs:
-  debian-packaging:
+  ubuntu-22:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
