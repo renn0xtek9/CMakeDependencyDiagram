@@ -1,0 +1,2 @@
+add_library(some_interface_lib INTERFACE)
+target_link_directories(some_interface_lib INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
