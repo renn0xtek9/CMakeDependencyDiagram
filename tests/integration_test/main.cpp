@@ -1,6 +1,7 @@
 #include <iostream>
+#include <some_interface_lib.h>
 int main()
 {
-  std::cout << "Intergation test: SUCCESS!" << std::endl;
+  std::cout << "Integration test: SUCCESS!" << std::endl;
   return 0;
 }

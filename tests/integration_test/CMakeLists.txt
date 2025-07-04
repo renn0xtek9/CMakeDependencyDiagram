@@ -1,4 +1,7 @@
 cmake_minimum_required(VERSION 3.21)
+enable_language(CXX)
 project(CMakeDependencyDiagrams-IntegrationTests)
 include("/usr/share/CMakeDependencyDiagrams/CMakeDependencyDiagrams.cmake")
+add_subdirectory(some_interface_lib)
 add_executable(integration_test_dummy_exe main.cpp)
+target_link_libraries(integration_test_dummy_exe PRIVATE some_interface_lib)
