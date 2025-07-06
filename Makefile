@@ -35,10 +35,10 @@ build/integration_test/Makefile: build/cmake-dependency-diagram-ubuntu-22.instal
 	@cd tests && cmake -S integration_test -B "$(BUILD_DIR)/integration_test" --graphviz="$(BUILD_DIR)/integration_test"/cmake.dot
 
 
-build/integration_test/CMakeDependencyDiagrams/index.html: build/integration_test/Makefile
-	@cmake --build $(BUILD_DIR)/integration_test --target cmake-dependency-diagrams
+build/integration_test/CMakeDependencyDiagram/index.html: build/integration_test/Makefile
+	@cmake --build $(BUILD_DIR)/integration_test --target cmake-dependency-Diagram
 
-test: build/integration_test/CMakeDependencyDiagrams/index.html
+test: build/integration_test/CMakeDependencyDiagram/index.html
 	@echo "$(GREEN)Testing the package...$(NC)"
 	@./tests/integration_test.sh
 
