@@ -2,7 +2,7 @@
 SOURCE_FOLDER="$1"
 DESTINATION_FOLDER="$2"
 
-FILE_LIST_OF_TARGET_DIAGRAM="$DESTINATION_FOLDER/listOfTargetFileDependencyDiagrams.js"
+FILE_LIST_OF_TARGET_DIAGRAM="$DESTINATION_FOLDER/listOfTargetFileDependencyDiagram.js"
 
 echo "var targetDiagramFiles = [" > "$FILE_LIST_OF_TARGET_DIAGRAM"
 first_target=true

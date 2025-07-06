@@ -8,11 +8,11 @@ set -e
 cd "$DIR"/../
 BUILD_DIR=./build/integration_test
 
-expect_file "$BUILD_DIR"/CMakeDependencyDiagrams/cmake.dot.png
-expect_file "$BUILD_DIR"/CMakeDependencyDiagrams/index.html 
-expect_file "$BUILD_DIR"/CMakeDependencyDiagrams/listOfTargetFileDependencyDiagrams.js 
+expect_file "$BUILD_DIR"/CMakeDependencyDiagram/cmake.dot.png
+expect_file "$BUILD_DIR"/CMakeDependencyDiagram/index.html 
+expect_file "$BUILD_DIR"/CMakeDependencyDiagram/listOfTargetFileDependencyDiagram.js 
 
 
-expect_string_in_file some_interface_lib.dependers "$BUILD_DIR"/CMakeDependencyDiagrams/listOfTargetFileDependencyDiagrams.js 
+expect_string_in_file some_interface_lib.dependers "$BUILD_DIR"/CMakeDependencyDiagram/listOfTargetFileDependencyDiagram.js 
 
 echo -e "$GREEN""PASSED: Integration test$NC"
