@@ -11,7 +11,7 @@ build/cmake-dependency-diagram-%.stamp: $(wildcard src/*) $(wildcard packaging/*
 	@mv $(BUILD_DIR)/packaging/*.deb output/
 	@touch $@
 
-packaging: build/cmake-dependency-diagram-ubuntu-22.stamp
+local_debian_packaging: build/cmake-dependency-diagram-ubuntu-22.stamp
 
 
 remove_currently_installed_package:
@@ -20,11 +20,12 @@ remove_currently_installed_package:
 	@sudo dpkg -P cmake-dependency-diagram || true
 	@rm -f build/cmake-dependency-diagram-ubuntu-22.installation-stamp
 
-build/cmake-dependency-diagram-ubuntu-22.installation-stamp: packaging
+build/cmake-dependency-diagram-ubuntu-22.installation-stamp: local_debian_packaging
 	@echo "$(GREN)Installing the package...$(NC)"
 	@cd output && sudo apt install -y ./cmake-dependency-diagram_1.0.0_all.deb
 	@touch $@
 
+local_debian_install: build/cmake-dependency-diagram-ubuntu-22.installation-stamp
 
 install: build/cmake-dependency-diagram-ubuntu-22.installation-stamp
 	@echo "$(GREEN)Package installed.$(NC)"
@@ -45,3 +46,7 @@ test: build/integration_test/CMakeDependencyDiagram/index.html
 clean: remove_currently_installed_package
 	@rm -rf $(BUILD_DIR)
 	@rm -rf output
+
+
+
+.PHONY: local_debian_install

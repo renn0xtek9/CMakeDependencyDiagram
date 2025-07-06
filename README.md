@@ -13,7 +13,7 @@ You are working on a CMake project and would like to easily visualize Diagram of
 
 Take a look at the [integration test example](tests/integration_test/CMakeLists.txt)
 
-1. Install the `CMakeDependencyDiagram package on your system. See [Installation](#installation)
+1. Install the `CMakeDependencyDiagram` package on your system. See [Installation](#installation)
 
 2. Include the `CMakeDependencyDiagram` in your CMakeLists.txt
 
@@ -45,6 +45,19 @@ You should see a web page like this that allows you to find target and visualize
 
 ## Installation
 
-### Ubuntu
+### Ubuntu 22 (Jammy Jellyfish)
 
-WIP
+```bash
+sudo add-apt-repository ppa:maxime-haselbauer/cmake-dependency-diagram
+sudo apt update
+sudo apt install cmake-dependency-diagram 
+```
+
+### From source (any debian)
+
+```bash
+git clone git@github.com:renn0xtek9/CMakeDependencyDiagram.git
+cd CMakeDependencyDiagram
+./install_build_dependencies.sh
+make local_debian_install
+```
