@@ -4,10 +4,10 @@ CMakeDependencyDiagram is a small cmake module that extends the [CMakeGraphVizOp
 
 ##  Usecase
 
-You are working on a CMake project and would like to easily visualize Diagram of a target dependencies in a web browser, either because of
+You are working on a CMake project and want to interactively visualize diagrams of a target dependencies in a web browser, either because of
 
 - troubleshooting the build of a target
-- pure project documentation
+- project documentation
 
 ## How to
 
@@ -47,17 +47,19 @@ You should see a web page like this that allows you to find target and visualize
 
 ### Ubuntu 22 (Jammy Jellyfish)
 
+#### Via package manager
+
 ```bash
 sudo add-apt-repository ppa:maxime-haselbauer/cmake-dependency-diagram
 sudo apt update
 sudo apt install cmake-dependency-diagram 
 ```
 
-### From source (any debian)
+#### From source
 
 ```bash
 git clone git@github.com:renn0xtek9/CMakeDependencyDiagram.git
 cd CMakeDependencyDiagram
 ./install_build_dependencies.sh
-make local_debian_install
+make ubuntu_22_local_install
 ```
