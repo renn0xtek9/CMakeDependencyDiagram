@@ -4,6 +4,8 @@ MAIN_VERSION := $(shell cat VERSION)
 GIT_HASH:= $(shell git rev-parse --short HEAD)
 FULL_PACKAGE_NAME= $(PACKAGE_NAME)_$(MAIN_VERSION)~git$(GIT_HASH)_all
 
+GPG_KEY_FINGER_PRINT ?= 04C9FB399050560B20F3DE85C86F45E902C8D9B7
+
 DEBFULLNAME := "Maxime Haselbaueer"
 DEBEMAIL := "maxime.haselbauer@googlemail.com"
 
@@ -41,6 +43,8 @@ $(BUILD_DIR)/local_install_%.stamp: $(BUILD_DIR)/local_packaging_%.stamp
 	@cd $(BUILD_DIR)/packaging/$*/ && sudo apt install -y ./${FULL_PACKAGE_NAME}.deb
 	@touch $@
 
+ubuntu_22_local_install: $(BUILD_DIR)/local_install_ubuntu-22.stamp
+
 # Uninstall package via the dependency manager
 uninstall_package:
 	@echo "$(GREEN)Removing $(PACKAGE_NAME) via dpkg $(NC)"
@@ -64,11 +68,13 @@ $(BUILD_DIR)/test_%.stamp: $(BUILD_DIR)/integration_test/%/CMakeDependencyDiagra
 	@./tests/integration_test.sh $*
 	@touch $@
 
+test_ubuntu_22: $(BUILD_DIR)/test_ubuntu-22.stamp
+
 ########## Upload to PPA 
 
 $(BUILD_DIR)/create_a_signed_package_%.stamp: $(BUILD_DIR)/test_%.stamp
 	@echo "$(GREEN)Prepare a signed package for $*$(NC)"
-	cd $(BUILD_DIR)/packaging/$*/$(FULL_PACKAGE_NAME)/ && debuild -S -sa -k04C9FB399050560B20F3DE85C86F45E902C8D9B7
+	cd $(BUILD_DIR)/packaging/$*/$(FULL_PACKAGE_NAME)/ && debuild -S -sa -k$(GPG_KEY_FINGER_PRINT)
 	@touch $@
 
 $(BUILD_DIR)/upload_to_ppa_%.stamp: $(BUILD_DIR)/create_a_signed_package_%.stamp
@@ -76,11 +82,13 @@ $(BUILD_DIR)/upload_to_ppa_%.stamp: $(BUILD_DIR)/create_a_signed_package_%.stamp
 	cd $(BUILD_DIR)/packaging/$* && dput ppa:maxime-haselbauer/cmake-dependency-diagram ./$(PACKAGE_NAME)_$(MAIN_VERSION)~git$(GIT_HASH)_source.changes
 	@touch $@
 
+upload_to_ppa_ubuntu_22: $(BUILD_DIR)/upload_to_ppa_ubuntu-22.stamp
+
 ######### Global targets
 
-test: $(BUILD_DIR)/test_ubuntu-22.stamp
+test: test_ubuntu_22
 
-upload_to_ppa: $(BUILD_DIR)/upload_to_ppa_ubuntu-22.stamp
+upload_to_ppa: upload_to_ppa_ubuntu_22
 
 clean: uninstall_package
 	@rm -rf $(BUILD_DIR)
