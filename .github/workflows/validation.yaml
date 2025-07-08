@@ -48,12 +48,18 @@ jobs:
       - name: Import GPG key and passphrase
         run: |
           mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
           echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
           echo "pinentry-mode loopback" >> ~/.gnupg/gpg-agent.conf
+          echo "use-agent" >> ~/.gnupg/gpg.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
           gpgconf --kill gpg-agent
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          DEBSIGN_KEYID: B4FDE89F568FFF2E12CB0D5C120722DEDC047183
+          DEBSIGN_PROGRAM: "gpg"
+          GPG_TTY: $(tty)
 
       - name: Upload to PPA 
         run: make upload_to_ppa_ubuntu_24 GPG_KEY_FINGER_PRINT=B4FDE89F568FFF2E12CB0D5C120722DEDC047183

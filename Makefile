@@ -76,7 +76,7 @@ test_ubuntu_24: $(BUILD_DIR)/test_ubuntu-24.stamp
 
 $(BUILD_DIR)/create_a_signed_package_%.stamp: $(BUILD_DIR)/test_%.stamp
 	@echo "$(GREEN)Prepare a signed package for $*$(NC)"
-	cd $(BUILD_DIR)/packaging/$*/$(FULL_PACKAGE_NAME)/ && debuild -S -sa -k$(GPG_KEY_FINGER_PRINT)
+	cd $(BUILD_DIR)/packaging/$*/$(FULL_PACKAGE_NAME)/ && debuild -S -sa -k$(GPG_KEY_FINGER_PRINT) --no-re-sign --gpg-options "--pinentry-mode loopback"
 	@touch $@
 
 $(BUILD_DIR)/upload_to_ppa_%.stamp: $(BUILD_DIR)/create_a_signed_package_%.stamp
