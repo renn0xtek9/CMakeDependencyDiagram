@@ -47,9 +47,11 @@ jobs:
 
       - name: Import GPG key and passphrase
         run: |
+          mkdir -p ~/.gnupg
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
-          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
-          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg-agent.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg-agent.conf
+          gpgconf --kill gpg-agent
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
 

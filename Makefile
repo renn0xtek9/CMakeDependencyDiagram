@@ -54,7 +54,7 @@ uninstall_package:
 	@rm -f $(BUILD_DIR)/*.installation-stamp
 
 ########## Integration tests
-$(BUILD_DIR)/integration_test/%/Makefile: $(BUILD_DIR)/local_install_ubuntu-22.stamp
+$(BUILD_DIR)/integration_test/%/Makefile: $(BUILD_DIR)/local_install_%.stamp
 	@echo "$(GREEN)Configuring integration tests CMake Project ($*) $(NC)"
 	@cd tests && mkdir -p $(BUILD_DIR)/integration_test && mkdir -p $(BUILD_DIR)/integration_test
 	@cd tests && cmake -S integration_test -B "$(BUILD_DIR)/integration_test/$*" --graphviz="$(BUILD_DIR)/integration_test/$*"/cmake.dot
