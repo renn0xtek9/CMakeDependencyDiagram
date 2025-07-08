@@ -29,3 +29,29 @@ jobs:
 
       - name: Upload to PPA 
         run: make upload_to_ppa_ubuntu_22 GPG_KEY_FINGER_PRINT=B4FDE89F568FFF2E12CB0D5C120722DEDC047183
+
+  ubuntu-24:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: ./install_build_dependencies.sh
+
+      - name: Clean packaging
+        run: make clean
+
+      - name: Test the created package
+        run: make test_ubuntu_24
+
+      - name: Import GPG key and passphrase
+        run: |
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+          echo "allow-loopback-pinentry" >> ~/.gnupg/gpg.conf
+          echo "pinentry-mode loopback" >> ~/.gnupg/gpg.conf
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+
+      - name: Upload to PPA 
+        run: make upload_to_ppa_ubuntu_24 GPG_KEY_FINGER_PRINT=B4FDE89F568FFF2E12CB0D5C120722DEDC047183

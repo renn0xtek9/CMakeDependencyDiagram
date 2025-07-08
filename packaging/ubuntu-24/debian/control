@@ -1,0 +1,16 @@
+Source: cmake-dependency-diagram
+Section: utils
+Priority: optional
+Maintainer: Maxime Haselbauer <maxime.haselbauer@googlemail.com>
+Build-Depends: debhelper-compat (= 12), dpkg-dev (>= 1.18)
+Standards-Version: 4.6.2
+Homepage: https://github.com/renn0xtek9/CMakeDependencyDiagram
+
+Package: cmake-dependency-diagram
+Architecture: all
+Depends: graphviz, ${misc:Depends}
+Recommends: cmake
+Description: CMake dependency diagram generator
+ This package provides a tool to generate dependency Diagram for CMake
+ projects. It uses the CMake language server to extract the dependencies and
+ Graphviz to create the Diagram.

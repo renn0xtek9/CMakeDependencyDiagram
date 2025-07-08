@@ -61,7 +61,7 @@ $(BUILD_DIR)/integration_test/%/Makefile: $(BUILD_DIR)/local_install_ubuntu-22.s
 
 $(BUILD_DIR)/integration_test/%/CMakeDependencyDiagram/index.html: $(BUILD_DIR)/integration_test/%/Makefile
 	@echo "$(GREEN)Building integration tests CMake Project for ($*) $(NC)"
-	@cmake --build $(BUILD_DIR)/integration_test/$* --target cmake-dependency-Diagram
+	@cmake --build $(BUILD_DIR)/integration_test/$* --target cmake-dependency-diagram
 
 $(BUILD_DIR)/test_%.stamp: $(BUILD_DIR)/integration_test/%/CMakeDependencyDiagram/index.html
 	@echo "$(GREEN)Running tests for $*$(NC)"
@@ -69,6 +69,8 @@ $(BUILD_DIR)/test_%.stamp: $(BUILD_DIR)/integration_test/%/CMakeDependencyDiagra
 	@touch $@
 
 test_ubuntu_22: $(BUILD_DIR)/test_ubuntu-22.stamp
+
+test_ubuntu_24: $(BUILD_DIR)/test_ubuntu-24.stamp
 
 ########## Upload to PPA 
 
@@ -83,6 +85,8 @@ $(BUILD_DIR)/upload_to_ppa_%.stamp: $(BUILD_DIR)/create_a_signed_package_%.stamp
 	@touch $@
 
 upload_to_ppa_ubuntu_22: $(BUILD_DIR)/upload_to_ppa_ubuntu-22.stamp
+
+upload_to_ppa_ubuntu_24: $(BUILD_DIR)/upload_to_ppa_ubuntu-24.stamp
 
 ######### Global targets
 
