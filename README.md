@@ -29,7 +29,7 @@ include("/usr/share/CMakeDependencyDiagram/CMakeDependencyDiagram.cmake")
 cmake -S integration_test -B "$BUILD_DIR" --graphviz="$BUILD_DIR"/cmake.dot
 ```
 
-4. When building the project, specify building the target `cmake-dependency-diagram` (**The Diagram are not built by default witht the "ALL" target**) For instance:
+4. When building the project, specify building the target `cmake-dependency-diagram` (**The diagram is not built by default with the "ALL" target**) For instance:
 
 ```cmake
 cmake --build "$BUILD_DIR" --target cmake-dependency-diagram
