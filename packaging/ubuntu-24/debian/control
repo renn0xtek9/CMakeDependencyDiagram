@@ -11,6 +11,6 @@ Architecture: all
 Depends: graphviz, ${misc:Depends}
 Recommends: cmake
 Description: CMake dependency diagram generator
- This package provides a tool to generate dependency Diagram for CMake
+ This package provides a tool to generate dependency diagram for CMake
  projects. It uses the CMake language server to extract the dependencies and
  Graphviz to create the Diagram.
