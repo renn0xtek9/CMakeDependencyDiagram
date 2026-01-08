@@ -1,0 +1,13 @@
+{
+    // Name shown in VS Code when selecting the devcontainer
+    "name": "Development Container",
+
+    // Build from a Dockerfile. Context is set to the repository root.
+    "build": {
+        "dockerfile": "Dockerfile",
+        "context": ".."
+    },
+    "mounts": [
+        "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    ]
+}

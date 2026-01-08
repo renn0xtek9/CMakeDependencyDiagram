@@ -9,7 +9,7 @@ source "$DIR/test_utils.sh"
 set -e 
 
 cd "$DIR"/../
-BUILD_DIR=./build/integration_test/"$PLATFORM"
+BUILD_DIR=/tmp/build/integration_test/"$PLATFORM"
 
 expect_file "$BUILD_DIR"/CMakeDependencyDiagram/cmake.dot.png
 expect_file "$BUILD_DIR"/CMakeDependencyDiagram/index.html 
