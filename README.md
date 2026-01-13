@@ -2,6 +2,8 @@
 
 CMakeDependencyDiagram is a small cmake module that extends the [CMakeGraphVizOption](https://cmake.org/cmake/help/latest/module/CMakeGraphVizOptions.html) functionality by providing a basic html page to browse dependency diagram of your cmake targets. It is a drop-in addition to your project and should not require significant changes.
 
+![screenshot](./doc/screenshot.png)
+
 ##  Usecase
 
 You are working on a CMake project and want to interactively visualize diagrams of a target dependencies in a web browser, either because of
@@ -27,10 +29,10 @@ include("/usr/share/CMakeDependencyDiagram/CMakeDependencyDiagram.cmake")
 cmake -S integration_test -B "$BUILD_DIR" --graphviz="$BUILD_DIR"/cmake.dot
 ```
 
-4. When building the project, specify building the target `cmake-dependency-Diagram` (**The Diagram are not built by default witht the "ALL" target**) For instance:
+4. When building the project, specify building the target `cmake-dependency-diagram` (**The diagram is not built by default with the "ALL" target**) For instance:
 
 ```cmake
-cmake --build "$BUILD_DIR" --target cmake-dependency-Diagram
+cmake --build "$BUILD_DIR" --target cmake-dependency-diagram
 ```
 
 5. Visualize the target dependency interactively by running
@@ -39,13 +41,11 @@ cmake --build "$BUILD_DIR" --target cmake-dependency-Diagram
 xdg-open "$BUILD_DIR"/CMakeDependencyDiagram/index.html
 ```
 
-You should see a web page like this that allows you to find target and visualize their dependencies.
-
-![screenshot](./doc/screenshot.png)
+You should see a web page like above.
 
 ## Installation
 
-### Ubuntu 22 (Jammy Jellyfish)
+### Ubuntu 22 (Jammy) or 24 (Noble)
 
 #### Via package manager
 
@@ -61,5 +61,14 @@ sudo apt install cmake-dependency-diagram
 git clone git@github.com:renn0xtek9/CMakeDependencyDiagram.git
 cd CMakeDependencyDiagram
 ./install_build_dependencies.sh
+```
+
+then
+
+```bash
 make ubuntu_22_local_install
+```
+
+```bash
+make ubuntu_24_local_install
 ```

@@ -1,4 +1,4 @@
-cmake-dependency-diagram (0.0.0) jammy; urgency=medium
+cmake-dependency-diagram (0.0.0) noble; urgency=medium
 
     * Initial release.
 

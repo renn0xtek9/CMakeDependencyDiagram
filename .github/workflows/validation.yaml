@@ -29,3 +29,47 @@ jobs:
 
       - name: Upload to PPA 
         run: make upload_to_ppa_ubuntu_22 GPG_KEY_FINGER_PRINT=B4FDE89F568FFF2E12CB0D5C120722DEDC047183
+
+  ubuntu-24:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: ./install_build_dependencies.sh
+
+      - name: Clean packaging
+        run: make clean
+
+      - name: Test the created package
+        run: make test_ubuntu_24
+
+      - name: Import GPG key
+        run: |
+          mkdir -p ~/.gnupg
+          chmod 700 ~/.gnupg
+
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+
+          # gpg-agent configuration (agent-side)
+          cat > ~/.gnupg/gpg-agent.conf <<EOF
+          allow-loopback-pinentry
+          EOF
+
+          # gpg configuration (client-side)
+          cat > ~/.gnupg/gpg.conf <<EOF
+          use-agent
+          pinentry-mode loopback
+          EOF
+
+          gpgconf --kill gpg-agent
+          gpgconf --launch gpg-agent
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+      - name: Configure debsign for loopback
+        run: |
+          echo 'DEBSIGN_PROGRAM=gpg' >> ~/.devscripts
+          echo 'DEBSIGN_GPG_OPTIONS="--pinentry-mode loopback"' >> ~/.devscripts
+      - name: Upload to PPA 
+        run: make upload_to_ppa_ubuntu_24 GPG_KEY_FINGER_PRINT=B4FDE89F568FFF2E12CB0D5C120722DEDC047183

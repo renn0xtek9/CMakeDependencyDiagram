@@ -17,6 +17,6 @@ add_custom_command(
   COMMENT "Creating build graph for configuration: ${CMAKE_BUILD_TYPE}")
 
 add_custom_target(
-  cmake-dependency-Diagram
+  cmake-dependency-diagram
   COMMENT "Create CMake build documentation at ${CMAKE_BUILD_DOCUMENTATION_OUTPUT}/index.html"
   DEPENDS ${CMAKE_BUILD_DOCUMENTATION_OUTPUT}/index.html ${CMAKE_BUILD_DOCUMENTATION_OUTPUT}/listOfTargetFileDependencyDiagram.js)
